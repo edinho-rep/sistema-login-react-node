@@ -2,7 +2,7 @@
 
 Sistema completo de autenticação (login e registro) construído com **React** no front-end e **Node.js/Express** no back-end, com foco em boas práticas de segurança: hash de senhas, autenticação via JWT, cookies `httpOnly` e proteção de rotas.
 
-> 🔗 Repositório: `<link-do-repositorio-aqui>`
+> 🔗 Repositório: `https://github.com/edinho-rep/sistema-login-react-node`
 
 ---
 
@@ -105,15 +105,15 @@ Alguns pontos que considerei importantes ao construir o projeto:
 
 ### 1. Clonar o repositório
 ```bash
-git clone <link-do-repositorio-aqui>
-cd <nome-do-repositorio>
+git clone https://github.com/edinho-rep/sistema-login-react-node
+cd sistema-login-react-node
 ```
 
 ### 2. Configurar o banco de dados
 ```sql
-CREATE DATABASE biblioteca;
+CREATE DATABASE matrix;
 
-USE biblioteca;
+USE matrix;
 
 CREATE TABLE dados_users (
     id INT AUTO_INCREMENT PRIMARY KEY,
@@ -191,19 +191,8 @@ npm install -D nodemon
 
 </details>
 
----
 
-## 📌 Próximos passos
 
-- [ ] Recuperação de senha ("Esqueceu sua senha?")
-- [ ] Deploy do back-end via systemd (Linux)
-- [ ] Testes automatizados (Jest / Supertest)
-- [ ] Deploy em produção (front-end e back-end)
 
----
 
-## 👤 Autor
 
-**Eder G. P.**
-Analista de Infraestrutura em transição para Desenvolvimento de Software.
-[LinkedIn](#) · [GitHub](#)
