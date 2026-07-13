@@ -259,4 +259,5 @@ See the **LICENSE** file for more information.
 
 **Eder Passos**
 
+* GitHub: https://github.com/edinho-rep
 * LinkedIn: https://www.linkedin.com/in/eder-passos-49493252/
