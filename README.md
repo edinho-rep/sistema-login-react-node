@@ -1,115 +1,135 @@
 # 🔐 Sistema de Autenticação Full-Stack
 
-Sistema completo de autenticação (login e registro) construído com **React** no front-end e **Node.js/Express** no back-end, com foco em boas práticas de segurança: hash de senhas, autenticação via JWT, cookies `httpOnly` e proteção de rotas.
+![React](https://img.shields.io/badge/React-19-61DAFB?logo=react&logoColor=white)
+![Node.js](https://img.shields.io/badge/Node.js-22-339933?logo=node.js&logoColor=white)
+![Express](https://img.shields.io/badge/Express.js-000000?logo=express)
+![MySQL](https://img.shields.io/badge/MySQL-4479A1?logo=mysql&logoColor=white)
+![JWT](https://img.shields.io/badge/Auth-JWT-orange)
+![License](https://img.shields.io/badge/License-MIT-green)
 
-> 🔗 Repositório: `https://github.com/edinho-rep/sistema-login-react-node`
+🇧🇷 **Português** | 🇺🇸 [English](README.en.md)
+
+Sistema completo de autenticação (login e registro) desenvolvido com **React** no front-end e **Node.js/Express** no back-end, aplicando boas práticas de segurança, como hash de senhas com **bcrypt**, autenticação via **JWT**, cookies **httpOnly** e proteção de rotas.
 
 ---
 
-## 📸 Screenshots
+# 📸 Screenshots
 
 | Login | Registro |
-|---|---|
+| :---: | :---: |
 | ![Tela de Login](docs/tela_login.png) | ![Tela de Registro](docs/registrar.png) |
 
 ---
 
-## ✨ Funcionalidades
+# ✨ Funcionalidades
 
-- Cadastro de novos usuários com validação de força de senha (mínimo 8 caracteres, maiúscula, minúscula e número)
-- Login com autenticação via **JWT**
-- Sessão persistida com segurança via **cookie `httpOnly`** (não acessível via JavaScript, protegendo contra ataques XSS)
-- Proteção de rotas no front-end (`PrivateRoute`) — usuários não autenticados são redirecionados automaticamente para o login
-- Logout com limpeza segura do cookie de sessão
-- Validação de formulário customizada (sem depender apenas do `required` nativo do navegador)
-- Indicador de força de senha em tempo real
-- Alternância de visibilidade de senha (mostrar/ocultar), acessível via teclado
-- Layout responsivo (desktop, tablet e mobile)
-- Correção de estilo para autofill do navegador (Chrome/Edge/Safari)
+- ✅ Cadastro de novos usuários
+- ✅ Login utilizando autenticação via JWT
+- ✅ Sessão persistida com cookies `httpOnly`
+- ✅ Proteção de rotas privadas (`PrivateRoute`)
+- ✅ Logout seguro com remoção do cookie de autenticação
+- ✅ Validação personalizada dos formulários
+- ✅ Indicador de força da senha em tempo real
+- ✅ Mostrar/Ocultar senha com suporte ao teclado
+- ✅ Layout responsivo (Desktop, Tablet e Mobile)
+- ✅ Correção do autofill dos navegadores (Chrome, Edge e Safari)
 
 ---
 
-## 🛠️ Tecnologias
+# 🛠️ Tecnologias
 
-**Front-end**
+## Front-end
+
 - React
 - React Router DOM
-- Context API (gerenciamento de estado de autenticação)
+- Context API
 - React Icons
-- CSS puro (glassmorphism, media queries)
+- CSS3
 
-**Back-end**
+## Back-end
+
 - Node.js
 - Express
-- MySQL (via `mysql2`, com pool de conexões)
-- bcrypt (hash de senhas)
-- jsonwebtoken (JWT)
+- MySQL (`mysql2`)
+- bcrypt
+- JSON Web Token (JWT)
 - cookie-parser
 - dotenv
-- cors
+- CORS
 
 ---
 
-## 🏗️ Arquitetura
+# 🏗️ Arquitetura
 
-O back-end segue uma arquitetura em camadas, separando responsabilidades:
+O back-end segue uma arquitetura em camadas, separando responsabilidades entre configuração, regras de negócio, rotas e middlewares.
 
-```
+```text
 backend/
-├── config/          → conexão com o banco de dados (pool MySQL)
-├── controllers/      → lógica de negócio (registro, login, logout)
-├── middleware/        → verificação de token JWT (proteção de rotas)
-├── routes/           → definição dos endpoints da API
-├── .env               → variáveis de ambiente (não versionado)
-└── server.js          → ponto de entrada da aplicação
+├── config/
+├── controllers/
+├── middleware/
+├── routes/
+├── package.json
+├── .env
+└── server.js
 ```
 
-O front-end organiza componentes de tela (`components/`), contexto global de autenticação (`context/`) e páginas pós-login (`pages/`):
+O front-end organiza os componentes reutilizáveis, o contexto global de autenticação e as páginas da aplicação.
 
-```
+```text
 frontend/
 ├── src/
 │   ├── components/
 │   │   ├── Login/
 │   │   ├── Registrar/
-│   │   ├── Shared/         → CSS compartilhado entre Login e Registrar
+│   │   ├── Shared/
 │   │   └── PrivateRoute.jsx
 │   ├── context/
-│   │   └── AuthContext.jsx  → estado global de autenticação
+│   │   └── AuthContext.jsx
 │   ├── pages/
 │   │   └── Home.jsx
-│   └── App.jsx
+│   ├── App.jsx
+│   └── main.jsx
+├── package.json
 ```
 
 ---
 
-## 🔒 Decisões de segurança
+# 🔒 Decisões de Segurança
 
-Alguns pontos que considerei importantes ao construir o projeto:
+Este projeto implementa diversas práticas recomendadas para autenticação segura.
 
-- **Senhas nunca são salvas em texto puro** — uso `bcrypt` para gerar hash antes de qualquer gravação no banco.
-- **Queries parametrizadas** em todas as consultas SQL, evitando SQL Injection.
-- **JWT armazenado em cookie `httpOnly`** em vez de `localStorage`, reduzindo a superfície de ataque contra XSS (o token não pode ser acessado via JavaScript no navegador).
-- **`sameSite: strict`** no cookie, como camada adicional de proteção contra CSRF.
-- **Mensagens de erro genéricas no login** ("e-mail ou senha inválidos"), para não revelar se um e-mail está ou não cadastrado no sistema.
-- **Validação de força de senha** tanto no front-end (feedback imediato) quanto no back-end (garantia real — o front-end pode ser contornado por quem chama a API diretamente).
-- **Variáveis sensíveis fora do código-fonte**, via `.env`, excluído do controle de versão pelo `.gitignore`.
+- 🔐 Senhas armazenadas utilizando **bcrypt**.
+- 🛡️ Consultas SQL parametrizadas para prevenir SQL Injection.
+- 🍪 Token JWT armazenado em **cookies httpOnly**, evitando acesso via JavaScript.
+- 🚫 Cookies configurados com **SameSite=Strict**, reduzindo riscos de ataques CSRF.
+- 🔍 Mensagens de erro genéricas durante o login, evitando a enumeração de usuários.
+- ✅ Validação da força da senha tanto no front-end quanto no back-end.
+- 🔑 Informações sensíveis armazenadas em variáveis de ambiente (`.env`).
 
 ---
 
-## 🚀 Como rodar o projeto localmente
+# 🚀 Como executar o projeto
 
-### Pré-requisitos
-- Node.js instalado
-- MySQL instalado e rodando
+## Pré-requisitos
 
-### 1. Clonar o repositório
+- Node.js
+- MySQL
+
+---
+
+## 1. Clonar o repositório
+
 ```bash
-git clone https://github.com/edinho-rep/sistema-login-react-node
+git clone https://github.com/edinho-rep/sistema-login-react-node.git
+
 cd sistema-login-react-node
 ```
 
-### 2. Configurar o banco de dados
+---
+
+## 2. Criar o banco de dados
+
 ```sql
 CREATE DATABASE matrix;
 
@@ -123,76 +143,121 @@ CREATE TABLE dados_users (
 );
 ```
 
-### 3. Configurar o back-end
+---
+
+## 3. Configurar o Back-end
+
 ```bash
 cd backend
+
 npm install
 ```
 
-Isso instala todas as dependências já listadas no `package.json` do projeto:
-- `express`, `mysql2`, `bcrypt`, `dotenv`, `cors`, `jsonwebtoken`, `cookie-parser`
-- `nodemon` (dependência de desenvolvimento)
+Crie um arquivo chamado **.env** na raiz do diretório **backend**.
 
-Cria um arquivo `.env` na raiz de `backend/` com o seguinte conteúdo:
 ```env
 DB_HOST=localhost
 DB_USER=root
-DB_PASSWORD=sua_senha_aqui
-DB_NAME=biblioteca
+DB_PASSWORD=sua_senha
+DB_NAME=matrix
 DB_PORT=3306
+
 PORT=5000
-JWT_SECRET=gere_uma_chave_forte_aqui
+
+JWT_SECRET=gere_uma_chave_forte
 ```
 
-> Dica: gere uma chave forte para o JWT com:
-> ```bash
-> node -e "console.log(require('crypto').randomBytes(64).toString('hex'))"
-> ```
+Para gerar uma chave segura para o JWT:
 
-Inicie o servidor:
+```bash
+node -e "console.log(require('crypto').randomBytes(64).toString('hex'))"
+```
+
+Inicie a API:
+
 ```bash
 npm run dev
 ```
 
-### 4. Configurar o front-end
+---
+
+## 4. Configurar o Front-end
+
 ```bash
 cd frontend
+
 npm install
-```
 
-Isso instala todas as dependências já listadas no `package.json` do projeto:
-- `react-router-dom` (roteamento e proteção de rotas)
-- `react-icons` (ícones usados nos formulários)
-
-Inicie a aplicação:
-```bash
 npm run dev
 ```
 
-A aplicação estará disponível em `http://localhost:5173`, consumindo a API em `http://localhost:5000`.
+A aplicação ficará disponível em:
 
-<details>
-<summary>📦 Como o projeto foi criado do zero (referência)</summary>
+**Front-end**
 
-**Front-end**, criado com Vite:
-```bash
-npx create-vite .
-# framework: React · variante: JavaScript
-npm install react-router-dom react-icons
+```text
+http://localhost:5173
 ```
 
-**Back-end**, criado manualmente:
-```bash
-mkdir backend && cd backend
-npm init -y
-npm install express mysql2 bcrypt dotenv cors jsonwebtoken cookie-parser
-npm install -D nodemon
+**Back-end**
+
+```text
+http://localhost:5000
 ```
 
-</details>
+---
 
+# 📂 Estrutura do Projeto
 
+```text
+sistema-login-react-node
+│
+├── backend
+│   ├── config
+│   ├── controllers
+│   ├── middleware
+│   ├── routes
+│   ├── server.js
+│   └── package.json
+│
+├── frontend
+│   ├── src
+│   ├── package.json
+│   └── vite.config.js
+│
+├── docs
+│
+├── README.md
+├── README.en.md
+└── LICENSE
+```
 
+---
 
+# 🚀 Próximas melhorias
 
+- [ ] Docker
+- [ ] Docker Compose
+- [ ] GitHub Actions (CI/CD)
+- [ ] Testes automatizados
+- [ ] Swagger / OpenAPI
+- [ ] Refresh Token
+- [ ] Recuperação de senha por e-mail
+- [ ] Deploy em ambiente Cloud
 
+---
+
+# 📄 Licença
+
+Este projeto está licenciado sob a **MIT License**.
+
+Consulte o arquivo **LICENSE** para mais informações.
+
+---
+
+# 👨‍💻 Autor
+
+**Eder Passos**
+
+- GitHub: https://github.com/edinho-rep
+- LinkedIn: https://www.linkedin.com/in/eder-passos-49493252/
