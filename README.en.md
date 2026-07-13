@@ -234,19 +234,6 @@ sistema-login-react-node
 
 ---
 
-# 🚀 Future Improvements
-
-* [ ] Docker
-* [ ] Docker Compose
-* [ ] GitHub Actions (CI/CD)
-* [ ] Automated Tests
-* [ ] Swagger / OpenAPI
-* [ ] Refresh Token
-* [ ] Password Recovery via Email
-* [ ] Cloud Deployment
-
----
-
 # 📄 License
 
 This project is licensed under the **MIT License**.

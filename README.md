@@ -234,18 +234,6 @@ sistema-login-react-node
 
 ---
 
-# 🚀 Próximas melhorias
-
-- [ ] Docker
-- [ ] Docker Compose
-- [ ] GitHub Actions (CI/CD)
-- [ ] Testes automatizados
-- [ ] Swagger / OpenAPI
-- [ ] Refresh Token
-- [ ] Recuperação de senha por e-mail
-- [ ] Deploy em ambiente Cloud
-
----
 
 # 📄 Licença
 
